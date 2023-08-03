@@ -9,20 +9,20 @@ namespace ConsoleApp6
 {
      class Employee
     {
-        public List<int> wynik = new List<int>();
-        public string Imie { get; private set; }
-        public string Nazwisko { get; private set; }
-        public int Wiek { get; private set; }
+        public List<int> employee = new List<int>();
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
+        public int Age { get; private set; }
         
-        public Employee(string imie, string nazwisko, int wiek)     //konstruktor
+        public Employee(string name, string surname, int age)     //konstruktor
         { 
-            Imie = imie;
-            Nazwisko = nazwisko;
-            Wiek = wiek;
+            Name = name;
+            Surname = surname;
+            Age = age;
         }
-        public void Zlicz(int punkty)
+        public void countPoint(int punkty)
         {
-            wynik.Add(punkty);
+            employee.Add(punkty);
         }
     }
 }
