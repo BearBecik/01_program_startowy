@@ -6,7 +6,7 @@ if (name == "Ewa" && age == 30)
 {
     Console.WriteLine($"mam na imę {name} w wieku {age} lat");
 }
-if (gender == "K" && age < 30)
+else if (gender == "K" && age < 30)
 {
     Console.WriteLine($"Jestem Kobietą poniżej {age} lat");
 }
