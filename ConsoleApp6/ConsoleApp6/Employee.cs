@@ -20,9 +20,9 @@ namespace ConsoleApp6
             Surname = surname;
             Age = age;
         }
-        public void countPoint(int punkty)
+        public void countPoint(int credits)
         {
-            employee.Add(punkty);
+            employee.Add(credits);
         }
     }
 }
