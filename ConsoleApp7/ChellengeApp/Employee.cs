@@ -20,7 +20,7 @@ namespace ChellengeApp
             Surname = surname;
             Age = age;
         }
-        public void countPoint(int credits)
+        public void CountPoint(int credits)
         {
             employee.Add(credits);
         }

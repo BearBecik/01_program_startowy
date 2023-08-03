@@ -4,23 +4,23 @@ Employee employee1 = new Employee("Arkadiusz", "Bett", 56);
 Employee employee2 = new Employee("Magdalena", "Kowalska", 26);
 Employee employee3 = new Employee("Zbigniew", "Malinowski", 37);
 
-employee1.countPoint(3);
-employee1.countPoint(2);
-employee1.countPoint(10);
-employee1.countPoint(3);
-employee1.countPoint(10);
+employee1.CountPoint(3);
+employee1.CountPoint(2);
+employee1.CountPoint(10);
+employee1.CountPoint(3);
+employee1.CountPoint(10);
 
-employee2.countPoint(2);
-employee2.countPoint(8);
-employee2.countPoint(7);
-employee2.countPoint(6);
-employee2.countPoint(1);
+employee2.CountPoint(2);
+employee2.CountPoint(8);
+employee2.CountPoint(7);
+employee2.CountPoint(6);
+employee2.CountPoint(1);
 
-employee3.countPoint(1);
-employee3.countPoint(6);
-employee3.countPoint(4);
-employee3.countPoint(8);
-employee3.countPoint(3);
+employee3.CountPoint(1);
+employee3.CountPoint(6);
+employee3.CountPoint(4);
+employee3.CountPoint(8);
+employee3.CountPoint(3);
 
 int max = -1;
 
