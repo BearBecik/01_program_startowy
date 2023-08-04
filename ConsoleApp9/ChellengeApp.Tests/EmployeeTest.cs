@@ -37,7 +37,6 @@ namespace ChellengeApp.Tests
             var result = employeeTest.GetStatistics();
 
             Assert.That((result.Min, result.Max, (float)Math.Round(result.Average,2)), Is.EqualTo((-2.698f, 100, 37.43f)));
-
         }
 
         [Test]
@@ -48,7 +47,6 @@ namespace ChellengeApp.Tests
             var result = employeeTest.GetStatistics();
 
             Assert.That((result.Min, result.Max, result.Average), Is.EqualTo((0, 0, 0f)));
-
         }
     }
 }
