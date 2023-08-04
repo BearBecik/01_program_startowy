@@ -36,18 +36,20 @@ var statistics3 = employee3.GetStatisticsDoWhile();
 Console.WriteLine($"Min: {statistics3.Min:N2} \tMax: {statistics3.Max:N2} \tAverage: {statistics3.Average:N2}");
 Console.WriteLine();
 
-Console.WriteLine($"Wyniki dla: {employee4.Name} {employee4.Surname}:");
-var statistics4 = employee4.GetStatistics();
-Console.WriteLine($"Min: {statistics4.Min:N2} \tMax: {statistics4.Max:N2} \tAverage: {statistics4.Average:N2}");
-Console.WriteLine();
-
 Console.WriteLine($"Wyniki dla: {employee5.Name} {employee5.Surname}:");
 employee5.AddGrade(42.0236f);
 employee5.AddGrade(22.23f);
 employee5.AddGrade(60.59f);
 employee5.AddGrade(76.56f);
 employee5.AddGrade(90.43f);
-var statistics5 = employee5.GetStatisticsForEach();
+var statistics5 = employee5.GetStatisticsWhile();
 Console.WriteLine($"Min: {statistics5.Min:N2} \tMax: {statistics5.Max:N2} \tAverage: {statistics5.Average:N2}");
 Console.WriteLine();
+
+Console.WriteLine($"Wyniki dla: {employee4.Name} {employee4.Surname}:");
+var statistics4 = employee4.GetStatisticsDoWhile();
+Console.WriteLine($"Min: {statistics4.Min:N2} \tMax: {statistics4.Max:N2} \tAverage: {statistics4.Average:N2}");
+Console.WriteLine();
+
+
 
