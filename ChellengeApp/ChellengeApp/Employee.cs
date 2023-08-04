@@ -36,14 +36,6 @@ namespace ChellengeApp
             else Console.WriteLine("Nie podano wartości liczbowej");
         }
 
-        public void AddGrade(char grade)
-        {
-            if (float.TryParse(grade.ToString(), out float result))
-            {
-                AddGrade(result);
-            }
-            else Console.WriteLine("Nie podano wartości liczbowej");
-        }
 
         public void AddGrade(int grade)
         {
@@ -87,15 +79,39 @@ namespace ChellengeApp
             Console.WriteLine("Podano zby dużą liczbę dla typu float");
         }
 
+        public void AddGrade(char grade)
+        {
+            string letter = grade.ToString().ToUpper();
+            switch (letter)
+            {
+                case "A":
+                    grades.Add(100);
+                    break;
+                case "B":
+                    grades.Add(80);
+                    break;
+                case "C":
+                    grades.Add(60);
+                    break;
+                case "D":
+                    grades.Add(40);
+                    break;
+                case "E":
+                    grades.Add(20);
+                    break;
+                default:
+                    Console.WriteLine("Podano niewłaściwą wartość z zakresu A-E");
+                    break;
+            }
+        }
+
         public Statistics GetStatistics()
         {
             var statistics = new Statistics();
-            //inicjowanie danych
             statistics.Max = float.MinValue;
             statistics.Min = float.MaxValue;
             statistics.Average = 0;
 
-            //akcja
             foreach (var grade in grades)
             {
                 statistics.Min = Math.Min(statistics.Min, grade);
@@ -106,13 +122,35 @@ namespace ChellengeApp
             if (grades.Count != 0)
             {
                 Math.Round((statistics.Average /= grades.Count), 2);
+
+                switch (statistics.Average)
+                {
+                    case var average when average >= 80:
+                        statistics.AverageLetter = 'A';
+                        break;
+                    case var average when average >= 60:
+                        statistics.AverageLetter = 'B';
+                        break;
+                    case var average when average >= 40:
+                        statistics.AverageLetter = 'C';
+                        break;
+                    case var average when average >= 20:
+                        statistics.AverageLetter = 'D';
+                        break;
+                    default:
+                        statistics.AverageLetter = 'E';
+                        break;
+                }
             }
             else
             {
                 statistics.Max = 0;
                 statistics.Min = 0;
+                statistics.AverageLetter = 'z';
             }
             return statistics;
         }
+
+
     }
 }
