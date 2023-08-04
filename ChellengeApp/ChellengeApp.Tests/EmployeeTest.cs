@@ -50,7 +50,7 @@ namespace ChellengeApp.Tests
         }
 
         [Test]
-        public void WhenEmployeeCollectLeOnlyCharacterScoress_ShouldCorrectResult()
+        public void WhenEmployeeCollectSwitchCharacterScoress_ShouldCorrectResult()
         {
             var employeeTest = new Employee();
             employeeTest.AddGrade('a');
