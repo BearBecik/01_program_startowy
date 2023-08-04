@@ -30,13 +30,13 @@ namespace ChellengeApp.Tests
         public void WhenEmployeeCollectThreeScoresOneMinus_ShouldCorrectResult()
         {
             var employeeTest = new Employee("Arkadiusz", "Bett");
-            employeeTest.AddGrade(-2.698f);
-            employeeTest.AddGrade(100);
+            employeeTest.AddGrade(2.698f);
+            employeeTest.AddGrade(100f);
             employeeTest.AddGrade(14.999f);
 
             var result = employeeTest.GetStatistics();
 
-            Assert.That((result.Min, result.Max, (float)Math.Round(result.Average,2)), Is.EqualTo((-2.698f, 100, 37.43f)));
+            Assert.That((result.Min, result.Max, (float)Math.Round(result.Average,2)), Is.EqualTo((2.698f, 100f, 39.23f)));
         }
 
         [Test]
@@ -48,5 +48,27 @@ namespace ChellengeApp.Tests
 
             Assert.That((result.Min, result.Max, result.Average), Is.EqualTo((0, 0, 0f)));
         }
+
+        [Test]
+        public void WhenEmployeeCollectLeOnlyCharacterScoress_ShouldCorrectResult()
+        {
+            var employeeTest = new Employee();
+            employeeTest.AddGrade('a');
+            employeeTest.AddGrade('e');
+            employeeTest.AddGrade('B');
+            employeeTest.AddGrade('z');
+            employeeTest.AddGrade('1');
+            employeeTest.AddGrade(111);
+            employeeTest.AddGrade("A");
+            employeeTest.AddGrade('A');
+            employeeTest.AddGrade('c');
+            employeeTest.AddGrade('E');
+
+            var result = employeeTest.GetStatistics();
+
+            Assert.That((result.Min, result.Max, (float)Math.Round(result.Average, 2)), Is.EqualTo((20f, 100f, 63.33f)));
+        }
+
+
     }
 }

@@ -18,6 +18,10 @@ namespace ChellengeApp
             Surname = surname;
         }
 
+        public Employee()
+        {
+        }
+
         public void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100)
@@ -81,22 +85,26 @@ namespace ChellengeApp
 
         public void AddGrade(char grade)
         {
-            string letter = grade.ToString().ToUpper();
-            switch (letter)
+            switch (grade)
             {
-                case "A":
+                case 'A':
+                case 'a':
                     grades.Add(100);
                     break;
-                case "B":
+                case 'B':
+                case 'b':
                     grades.Add(80);
                     break;
-                case "C":
+                case 'C':
+                case 'c':
                     grades.Add(60);
                     break;
-                case "D":
+                case 'D':
+                case 'd':
                     grades.Add(40);
                     break;
-                case "E":
+                case 'E':
+                case 'e':
                     grades.Add(20);
                     break;
                 default:
