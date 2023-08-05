@@ -35,7 +35,7 @@ namespace ChellengeApp
         {
             if (float.TryParse(grade, out float result))
             {
-                AddGrade(result);                 //przywołanie właściwej metody bez konieczności przepisywanie kodu
+                AddGrade(result);
             }
             else Console.WriteLine("Nie podano wartości liczbowej");
         }
