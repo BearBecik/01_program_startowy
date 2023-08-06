@@ -7,7 +7,7 @@ while (true)
     Console.WriteLine("*************************************************");
     Console.WriteLine();
     Console.WriteLine("użycie 'q' powoduje zakończenie wprowadzania");
-    Console.WriteLine("Oceny można wprowadzać zarówno literowo jak i liczbowo");
+    Console.WriteLine("Oceny można wprowadzać zarówno literowo 'A-E' jak i liczbowo 0-100");
     Console.WriteLine();
     Console.WriteLine("Dane pracownika:");
     Console.Write("Imię \t\t");
@@ -30,29 +30,35 @@ while (true)
     {
         Console.WriteLine($"Podaj ilość punktów, 'q-quit' koniec wprowadzania punktacji");
         var input = Console.ReadLine().ToUpper().Trim();
-
         if (input == "Q")
         {
             break;
         }
 
-        if (char.TryParse(input, out char inputChar))
-            switch (input)
-            {
-                case "A":
-                case "B":
-                case "C":
-                case "D":
-                case "E":
-                    employee.AddGrade(inputChar);
-                    break;
-                default:
-                    employee.AddGrade(input);
-                    break;
-            }
-        else
+        try
         {
-            employee.AddGrade(input);
+            if (char.TryParse(input, out char inputChar))
+                switch (inputChar)
+                {
+                    case 'A':
+                    case 'B':
+                    case 'C':
+                    case 'D':
+                    case 'E':
+                        employee.AddGrade(inputChar);
+                        break;
+                    default:
+                        employee.AddGrade(input);
+                        break;
+                }
+            else
+            {
+                employee.AddGrade(input);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Exception: {e.Message}");
         }
     }
     var statistics = employee.GetStatistics();

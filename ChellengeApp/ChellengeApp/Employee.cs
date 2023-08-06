@@ -12,6 +12,7 @@ namespace ChellengeApp
         private List<float> grades = new List<float>();
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string Sex { get; set; }
         public Employee(string name, string surname)
         {
             Name = name;
@@ -28,7 +29,10 @@ namespace ChellengeApp
             {
                 grades.Add(grade);
             }
-            else Console.WriteLine("Podano błędną daną z poza zakresu 0-100");
+            else 
+            {
+                throw new Exception("Podano błędną daną z poza zakresu 0-100");
+            }
         }
 
         public void AddGrade(string grade)
@@ -37,7 +41,10 @@ namespace ChellengeApp
             {
                 AddGrade(result);
             }
-            else Console.WriteLine("Nie podano wartości liczbowej");
+            else
+            {
+                throw new Exception("Nie podano wartości liczbowej");
+            }
         }
 
 
@@ -50,7 +57,6 @@ namespace ChellengeApp
         {
             AddGrade((float)grade);
         }
-
 
         //założenie, że nie wiem, jakie maksymalne wartości mają poniższe typy zmiennych
         public void AddGrade(long grade)
@@ -80,7 +86,7 @@ namespace ChellengeApp
 
         private void MessageError()
         {
-            Console.WriteLine("Podano zby dużą liczbę dla typu float");
+            throw new Exception("Podano zby dużą liczbę dla typu float");
         }
 
         public void AddGrade(char grade)
@@ -108,8 +114,7 @@ namespace ChellengeApp
                     grades.Add(20);
                     break;
                 default:
-                    Console.WriteLine("Podano niewłaściwą wartość z zakresu A-E");
-                    break;
+                    throw new Exception("Podano niewłaściwą wartość z zakresu A-E");
             }
         }
 
