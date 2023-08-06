@@ -1,25 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ChellengeApp
 {
-    public class Employee
+    public class Employee : Person
     {
         private List<float> grades = new List<float>();
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Sex { get; set; }
-        public Employee(string name, string surname)
+
+        public Employee() : this("Arkadiusz", "Bett", 'M', 56, "Franciszek")
         {
-            Name = name;
-            Surname = surname;
+        }
+        public Employee(string name) : this(name, "Bett", 'M', 56, "Franciszek")
+        {
+        }
+        public Employee(string name, string surname) : this(name, surname, 'M', 56, "Franciszek")
+        {
         }
 
-        public Employee()
+        public Employee(string name, string surname, char sex) : this(name, surname, sex , 56, "Franciszek")
+        {
+        }
+
+        public Employee(string name, string surname, char sex, int age) : this(name, surname, sex, age, "Franciszek")
+        {
+        }
+
+        public Employee(string name, string surname, char sex, int age, string nameFather) : base (name, surname, sex, age, nameFather)
         {
         }
 
@@ -29,7 +40,7 @@ namespace ChellengeApp
             {
                 grades.Add(grade);
             }
-            else 
+            else
             {
                 throw new Exception("Podano błędną daną z poza zakresu 0-100");
             }
@@ -46,7 +57,6 @@ namespace ChellengeApp
                 throw new Exception("Nie podano wartości liczbowej");
             }
         }
-
 
         public void AddGrade(int grade)
         {
@@ -163,7 +173,5 @@ namespace ChellengeApp
             }
             return statistics;
         }
-
-
     }
 }
