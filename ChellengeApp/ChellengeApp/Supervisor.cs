@@ -1,44 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ChellengeApp
 {
-    public class Employee : IEmployee
+    public class Supervisor : IEmployee
     {
         private List<float> grades = new List<float>();
-
-        public Employee() : this("Arkadiusz", "Bett", 'M', 56, "Franciszek")
-        {
-        }
-        public Employee(string name) : this(name, "Bett", 'M', 56, "Franciszek")
-        {
-        }
-        public Employee(string name, string surname) : this(name, surname, 'M', 56, "Franciszek")
+        public Supervisor(string name, string surname) //: this('M', 56, "Franciszek")
         {
         }
 
-        public Employee(string name, string surname, char sex) : this(name, surname, sex , 56, "Franciszek")
+        public Supervisor(string name, string surname, char sex, int age, string nameFather)// : base (name, surname, sex, age, nameFather)
         {
         }
 
-        public Employee(string name, string surname, char sex, int age) : this(name, surname, sex, age, "Franciszek")
-        {
-        }
-
-        public Employee(string name, string surname, char sex, int age, string nameFather)// : base (name, surname, sex, age, nameFather)
-        {
-        }
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public char Sex { get; private set; }
         public int Age { get; private set; }
         public string NameFather { get; private set; }
-
 
         public void AddGrade(float grade)
         {
@@ -54,13 +37,74 @@ namespace ChellengeApp
 
         public void AddGrade(string grade)
         {
-            if (float.TryParse(grade, out float result))
+            grade = grade.Replace("+", "");
+            if (grade.Length == 2 && grade[1] == '-')
             {
-                AddGrade(result);
+                grade = "-" + grade.Substring(0, 1);
+            }
+            if (int.TryParse(grade, out int note))
+            {
+                switch (note)
+                {
+                    case 6:
+                        grades.Add(100);
+                        break;
+                    case 5:
+                        grades.Add(80);
+                        break;
+                    case 4:
+                        grades.Add(60);
+                        break;
+                    case 3:
+                        grades.Add(40);
+                        break;
+                    case -3:
+                        grades.Add(35);
+                        break;
+                    case 2:
+                        grades.Add(25);
+                        break;
+                    case -2:
+                        grades.Add(20);
+                        break;
+                    case 1:
+                        grades.Add(0);
+                        break;
+                    default:
+                        throw new Exception("Podano błędną ocenę, oczekuje się ocen z zakresu 1-6");
+                }
             }
             else
             {
-                throw new Exception("Nie podano wartości liczbowej");
+                throw new Exception("Podano błędną ocenę, oczekuje się ocen z zakresu 1-6");
+            }
+        }
+        public void AddGrade(char grade)
+        {
+            switch (grade)
+            {
+                case 'A':
+                case 'a':
+                    grades.Add(100);
+                    break;
+                case 'B':
+                case 'b':
+                    grades.Add(80);
+                    break;
+                case 'C':
+                case 'c':
+                    grades.Add(60);
+                    break;
+                case 'D':
+                case 'd':
+                    grades.Add(40);
+                    break;
+                case 'E':
+                case 'e':
+                    grades.Add(20);
+                    break;
+                default:
+                    throw new Exception("Podano niewłaściwą wartość z zakresu A-E");
             }
         }
 
@@ -100,34 +144,8 @@ namespace ChellengeApp
             else MessageError();
         }
 
-        public void AddGrade(char grade)
-        {
-            switch (grade)
-            {
-                case 'A':
-                case 'a':
-                    grades.Add(100);
-                    break;
-                case 'B':
-                case 'b':
-                    grades.Add(80);
-                    break;
-                case 'C':
-                case 'c':
-                    grades.Add(60);
-                    break;
-                case 'D':
-                case 'd':
-                    grades.Add(40);
-                    break;
-                case 'E':
-                case 'e':
-                    grades.Add(20);
-                    break;
-                default:
-                    throw new Exception("Podano niewłaściwą wartość z zakresu A-E");
-            }
-        }
+
+
 
         private void MessageError()
         {
@@ -181,4 +199,8 @@ namespace ChellengeApp
             return statistics;
         }
     }
+
+
+
+
 }
