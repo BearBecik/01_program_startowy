@@ -85,68 +85,26 @@ namespace ChellengeApp
 
         public override Statistics GetStatistics()
         {
-            var statistics = new Statistics();
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
-            statistics.Average = 0;
-
             if (File.Exists(fileName))
             {
                 using (var reader = File.OpenText(fileName))
                 {
                     var line = reader.ReadLine();
-                    int lineNumber = 0;
                     while (line != null)
                     {
-                        lineNumber++;
                         if ((float.TryParse(line, out float result)) && (result >= 0 && result <= 100))
                         {
                             grades.Add((float)result);
-                        }
-                        else
-                        {
-                            //throw new Exception("Ktoś grzebał w pliku");
-                            Console.WriteLine($"Ktoś grzebał w pliku w linii {lineNumber}: {line}");
                         }
                         line = reader.ReadLine();
                     }
                 }
             }
-            if (grades.Count != 0)
-            {
-                foreach (var grade in grades)
-                {
-                    statistics.Min = Math.Min(statistics.Min, grade);
-                    statistics.Max = Math.Max(statistics.Max, grade);
-                    statistics.Average += grade;
-                }
 
-                Math.Round((statistics.Average /= grades.Count), 2);
-
-                switch (statistics.Average)
-                {
-                    case var average when average >= 80:
-                        statistics.AverageLetter = 'A';
-                        break;
-                    case var average when average >= 60:
-                        statistics.AverageLetter = 'B';
-                        break;
-                    case var average when average >= 40:
-                        statistics.AverageLetter = 'C';
-                        break;
-                    case var average when average >= 20:
-                        statistics.AverageLetter = 'D';
-                        break;
-                    default:
-                        statistics.AverageLetter = 'E';
-                        break;
-                }
-            }
-            else
+            var statistics = new Statistics();
+            foreach (var grade in grades)
             {
-                statistics.Max = 0;
-                statistics.Min = 0;
-                statistics.AverageLetter = 'z';
+                statistics.AddGrade(grade);
             }
             return statistics;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ChellengeApp.EmployeeBase;
 
 namespace ChellengeApp
 {
@@ -14,8 +15,11 @@ namespace ChellengeApp
         int Age { get; }
         string NameFather { get; }
 
-        Statistics GetStatistics();
         void AddGrade(float grade);
         void AddGrade(string grade);
+        Statistics GetStatistics();
+
+        event GradeAddedDelegate GradeAdded;
+
     }
 }

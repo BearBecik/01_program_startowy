@@ -26,7 +26,6 @@ namespace ChellengeApp
         public char Sex { get; private set; }
         public int Age { get; private set; }
         public string NameFather { get; private set; }
-
         public abstract void AddGrade(float grade);
         public abstract void AddGrade(string grade);
         public abstract Statistics GetStatistics();

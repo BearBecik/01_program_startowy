@@ -28,7 +28,7 @@ while (true)
     }
     Console.WriteLine($"Wprowadź oceny (każdą zatwierdź enterem, 'q-quit' koniec wprowadzania punktacji)");
 
-    var employee = new EmployeeInMemory(name, surname, 'M', 56, "aaaa");
+    var employee = new EmployeeInFile(name, surname, 'M', 56, "aaaa");
 
     employee.GradeAdded += EmployeeGradeAdded;                                  //tu jest podpięcie event'u
     void EmployeeGradeAdded(object sender, EventArgs arg)
@@ -56,7 +56,7 @@ while (true)
     }
     var statistics = employee.GetStatistics();
     Console.WriteLine($"Wyniki dla: {employee.Name} {employee.Surname}, '{employee.Sex}' lat: {employee.Age}");
-    Console.WriteLine($"Min: {statistics.Min:N2} \tMax: {statistics.Max:N2} \tŚrednia: {statistics.Average:N2} \tOgólna ocena: {statistics.AverageLetter}");
+    Console.WriteLine($"Min: {statistics.Min:N2} \tMax: {statistics.Max:N2} \tŚrednia: {statistics.Average:N2} ({statistics.Sum}/{statistics.Count}), \tOgólna ocena: {statistics.AverageLetter}");
     Console.WriteLine();
     Console.WriteLine("zakończono wyświetlanie statystyk Pracownika, wciśnij dowolny klawisz, aby przejść do wprowadzania kolejnego pracownika");
     Console.ReadKey();
