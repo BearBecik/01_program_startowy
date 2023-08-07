@@ -10,28 +10,21 @@ namespace ChellengeApp
     public class EmployeeInFile : EmployeeBase
     {
         private List<float> grades = new List<float>();
-        private string name;
-        private string surname;
+        public override event GradeAddedDelegate GradeAdded;
         private const string fileName = "grades.txt";
-
-        public EmployeeInFile(string name, string surname, char sex, int age) : this(name, surname, sex, age , "Franciszek")
+        public EmployeeInFile(string name, string surname, char sex, int age, string nameFather) : base(name, surname, sex, age, nameFather)
         {
             Name = name;
             Surname = surname;
-            Age = age;
             Sex = sex;
-        }
-
-        public EmployeeInFile(string name, string surname, char sex, int age, string nameFather) : base(name, surname, sex, age, nameFather)
-        {
+            Age = age;
+            NameFather = nameFather;
         }
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public char Sex { get; private set; }
         public int Age { get; private set; }
         public string NameFather { get; private set; }
-
-
 
         public override void AddGrade(float grade)
         {
@@ -40,6 +33,10 @@ namespace ChellengeApp
                 using (var writer = File.AppendText(fileName))      //otwarcie pliku strumieniowego, trzeba go potem zamknąć
                 {
                     writer.WriteLine(grade);                        //dopisanie wiersza
+                    if (GradeAdded != null)
+                    {
+                        GradeAdded(this, new EventArgs());
+                    }
                 }
             }
             else

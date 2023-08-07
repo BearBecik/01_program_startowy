@@ -5,33 +5,22 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ChellengeApp.EmployeeBase;
 
 namespace ChellengeApp
 {
-    public class Employee : IEmployee
+    public class Employee : EmployeeBase
     {
         private List<float> grades = new List<float>();
+        public override event GradeAddedDelegate GradeAdded;
 
-        public Employee() : this("Arkadiusz", "Bett", 'M', 56, "Franciszek")
+        public Employee(string name, string surname, char sex, int age, string nameFather) : base(name, surname, sex, age, nameFather)
         {
-        }
-        public Employee(string name) : this(name, "Bett", 'M', 56, "Franciszek")
-        {
-        }
-        public Employee(string name, string surname) : this(name, surname, 'M', 56, "Franciszek")
-        {
-        }
-
-        public Employee(string name, string surname, char sex) : this(name, surname, sex, 56, "Franciszek")
-        {
-        }
-
-        public Employee(string name, string surname, char sex, int age) : this(name, surname, sex, age, "Franciszek")
-        {
-        }
-
-        public Employee(string name, string surname, char sex, int age, string nameFather)// : base (name, surname, sex, age, nameFather)
-        {
+            Name = name;
+            Surname = surname;
+            Sex = sex;
+            Age = age;
+            NameFather = nameFather;
         }
         public string Name { get; private set; }
         public string Surname { get; private set; }
@@ -40,11 +29,15 @@ namespace ChellengeApp
         public string NameFather { get; private set; }
 
 
-        public void AddGrade(float grade)
+        public override void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
                 grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
             }
             else
             {
@@ -52,7 +45,7 @@ namespace ChellengeApp
             }
         }
 
-        public void AddGrade(string grade)
+        public override void AddGrade(string grade)
         {
             if (float.TryParse(grade, out float result))
             {
@@ -90,7 +83,7 @@ namespace ChellengeApp
             }
         }
 
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
             statistics.Max = float.MinValue;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,21 +10,29 @@ namespace ChellengeApp
     public class EmployeeInMemory : EmployeeBase
     {
         private List<float> grades = new List<float>();
-
+        public override event GradeAddedDelegate GradeAdded;
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
+        public char Sex { get; private set; }
+        public int Age { get; private set; }
+        public string NameFather { get; private set; }
         public EmployeeInMemory(string name, string surname, char sex, int age, string nameFather) : base(name, surname, sex, age, nameFather)
         {
-        }
-
-        public override void SayHello()         //nadpisanie metody wirtualnej
-        {
-            Console.WriteLine("Cześć");         //to z tej klasy
-            base.SayHello();                    //to z klasy bazowej
+            Name = name;
+            Surname = surname;
+            Sex = sex;
+            Age = age;
+            NameFather = nameFather;
         }
         public override void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
                 grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
             }
             else
             {

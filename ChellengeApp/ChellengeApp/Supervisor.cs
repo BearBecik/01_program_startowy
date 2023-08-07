@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ChellengeApp.EmployeeBase;
 
 namespace ChellengeApp
 {
-    public class Supervisor : IEmployee
+    public class Supervisor : EmployeeBase
     {
         private List<float> grades = new List<float>();
-        public Supervisor(string name, string surname) //: this('M', 56, "Franciszek")
-        {
-        }
+        public override event GradeAddedDelegate GradeAdded;
 
-        public Supervisor(string name, string surname, char sex, int age, string nameFather)// : base (name, surname, sex, age, nameFather)
+        public Supervisor(string name, string surname, char sex, int age, string nameFather) : base(name, surname, sex, age, nameFather)
         {
+            Name = name;
+            Surname = surname;
+            Sex = sex;
+            Age = age;
+            NameFather = nameFather;
         }
 
         public string Name { get; private set; }
@@ -23,11 +27,15 @@ namespace ChellengeApp
         public int Age { get; private set; }
         public string NameFather { get; private set; }
 
-        public void AddGrade(float grade)
+        public override void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
                 grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
             }
             else
             {
@@ -35,7 +43,7 @@ namespace ChellengeApp
             }
         }
 
-        public void AddGrade(string grade)
+        public override void AddGrade(string grade)
         {
             grade = grade.Replace("+", "").Trim();
             if (grade.Length == 2 && grade[1] == '-')
@@ -47,28 +55,28 @@ namespace ChellengeApp
                 switch (note)
                 {
                     case 6:
-                        grades.Add(100);
+                        AddGrade(100);
                         break;
                     case 5:
-                        grades.Add(80);
+                        AddGrade(80);
                         break;
                     case 4:
-                        grades.Add(60);
+                        AddGrade(60);
                         break;
                     case 3:
-                        grades.Add(40);
+                        AddGrade(40);
                         break;
                     case -3:
-                        grades.Add(35);
+                        AddGrade(35);
                         break;
                     case 2:
-                        grades.Add(25);
+                        AddGrade(25);
                         break;
                     case -2:
-                        grades.Add(20);
+                        AddGrade(20);
                         break;
                     case 1:
-                        grades.Add(0);
+                        AddGrade(0);
                         break;
                     default:
                         throw new Exception("Podano błędną ocenę, oczekuje się ocen z zakresu 1-6");
@@ -79,36 +87,8 @@ namespace ChellengeApp
                 throw new Exception("Podano błędną ocenę, oczekuje się ocen z zakresu 1-6");
             }
         }
-        public void AddGrade(char grade)
-        {
-            switch (grade)
-            {
-                case 'A':
-                case 'a':
-                    grades.Add(100);
-                    break;
-                case 'B':
-                case 'b':
-                    grades.Add(80);
-                    break;
-                case 'C':
-                case 'c':
-                    grades.Add(60);
-                    break;
-                case 'D':
-                case 'd':
-                    grades.Add(40);
-                    break;
-                case 'E':
-                case 'e':
-                    grades.Add(20);
-                    break;
-                default:
-                    throw new Exception("Podano niewłaściwą wartość z zakresu A-E");
-            }
-        }
 
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
             statistics.Max = float.MinValue;

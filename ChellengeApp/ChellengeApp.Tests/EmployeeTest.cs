@@ -13,7 +13,7 @@ namespace ChellengeApp.Tests
         public void WhenEmployeeCollectFourGrades_ShouldCorrectResult()
         {
             //1. arranege
-            var employeeTest = new Employee("Arkadiusz", "Bett");
+            var employeeTest = new Employee("Arkadiusz", "Bett", 'M', 56, "Franciszek");
             employeeTest.AddGrade(2);
             employeeTest.AddGrade(10);
             employeeTest.AddGrade(3);
@@ -29,7 +29,7 @@ namespace ChellengeApp.Tests
         [Test]
         public void WhenEmployeeCollectThreeScoresOneMinus_ShouldCorrectResult()
         {
-            var employeeTest = new Employee("Arkadiusz", "Bett");
+            var employeeTest = new Employee("Arkadiusz", "Bett", 'M', 56, "Franciszek");
             employeeTest.AddGrade(2.698f);
             employeeTest.AddGrade(100f);
             employeeTest.AddGrade(14.999f);
@@ -42,7 +42,7 @@ namespace ChellengeApp.Tests
         [Test]
         public void WhenEmployeeCollectNullScoress_ShouldCorrectResult()
         {
-            var employeeTest = new Employee("Arkadiusz", "Bett");
+            var employeeTest = new Employee("Arkadiusz", "Bett", 'M', 56, "Franciszek");
 
             var result = employeeTest.GetStatistics();
 
@@ -52,7 +52,7 @@ namespace ChellengeApp.Tests
         [Test]
         public void WhenEmployeeCollectSwitchCharacterScoress_ShouldCorrectResult()
         {
-            var employeeTest = new Employee();
+            var employeeTest = new Employee("Arkadiusz", "Bett", 'M', 56, "Franciszek");
             employeeTest.AddGrade("a");
             employeeTest.AddGrade("e");
             employeeTest.AddGrade("B");
