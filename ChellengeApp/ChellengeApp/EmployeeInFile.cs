@@ -1,36 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ChellengeApp
 {
-    public class Employee : IEmployee
+    public class EmployeeInFile : EmployeeBase
     {
         private List<float> grades = new List<float>();
+        private string name;
+        private string surname;
+        private const string fileName = "grades.txt";
 
-        public Employee() : this("Arkadiusz", "Bett", 'M', 56, "Franciszek")
+        public EmployeeInFile(string name, string surname, char sex, int age) : this(name, surname, sex, age , "Franciszek")
         {
-        }
-        public Employee(string name) : this(name, "Bett", 'M', 56, "Franciszek")
-        {
-        }
-        public Employee(string name, string surname) : this(name, surname, 'M', 56, "Franciszek")
-        {
-        }
-
-        public Employee(string name, string surname, char sex) : this(name, surname, sex, 56, "Franciszek")
-        {
+            Name = name;
+            Surname = surname;
+            Age = age;
+            Sex = sex;
         }
 
-        public Employee(string name, string surname, char sex, int age) : this(name, surname, sex, age, "Franciszek")
-        {
-        }
-
-        public Employee(string name, string surname, char sex, int age, string nameFather)// : base (name, surname, sex, age, nameFather)
+        public EmployeeInFile(string name, string surname, char sex, int age, string nameFather) : base(name, surname, sex, age, nameFather)
         {
         }
         public string Name { get; private set; }
@@ -40,19 +32,23 @@ namespace ChellengeApp
         public string NameFather { get; private set; }
 
 
-        public void AddGrade(float grade)
+
+        public override void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
-                grades.Add(grade);
+                using (var writer = File.AppendText(fileName))      //otwarcie pliku strumieniowego, trzeba go potem zamknąć
+                {
+                    writer.WriteLine(grade);                        //dopisanie wiersza
+                }
             }
             else
             {
-                throw new Exception("Podano błędną ocenę, dopuszczalny zakres: 0-100");
+                throw new Exception("Podano błędną daną z poza zakresu 0-100");
             }
         }
 
-        public void AddGrade(string grade)
+        public override void AddGrade(string grade)
         {
             if (float.TryParse(grade, out float result))
             {
@@ -90,22 +86,44 @@ namespace ChellengeApp
             }
         }
 
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
             statistics.Max = float.MinValue;
             statistics.Min = float.MaxValue;
             statistics.Average = 0;
 
-            foreach (var grade in grades)
+            if (File.Exists(fileName))
             {
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Average += grade;
+                using (var reader = File.OpenText(fileName))
+                {
+                    var line = reader.ReadLine();
+                    int lineNumber = 0;
+                    while (line != null)
+                    {
+                        lineNumber++;
+                        if ((float.TryParse(line, out float result)) && (result >= 0 && result <= 100))
+                        {
+                            grades.Add((float)result);
+                        }
+                        else
+                        {
+                            //throw new Exception("Ktoś grzebał w pliku");
+                            Console.WriteLine($"Ktoś grzebał w pliku w linii {lineNumber}: {line}");
+                        }
+                        line = reader.ReadLine();
+                    }
+                }
             }
-
             if (grades.Count != 0)
             {
+                foreach (var grade in grades)
+                {
+                    statistics.Min = Math.Min(statistics.Min, grade);
+                    statistics.Max = Math.Max(statistics.Max, grade);
+                    statistics.Average += grade;
+                }
+
                 Math.Round((statistics.Average /= grades.Count), 2);
 
                 switch (statistics.Average)

@@ -17,11 +17,5 @@ namespace ChellengeApp
         Statistics GetStatistics();
         void AddGrade(float grade);
         void AddGrade(string grade);
-        void AddGrade(int grade);
-        void AddGrade(long grade);
-        void AddGrade(ulong grade);
-        void AddGrade(double grade);
-        void AddGrade(char grade);
-        void AddGrade(decimal grade);
     }
 }

@@ -37,7 +37,7 @@ namespace ChellengeApp
 
         public void AddGrade(string grade)
         {
-            grade = grade.Replace("+", "");
+            grade = grade.Replace("+", "").Trim();
             if (grade.Length == 2 && grade[1] == '-')
             {
                 grade = "-" + grade.Substring(0, 1);
@@ -108,51 +108,6 @@ namespace ChellengeApp
             }
         }
 
-        public void AddGrade(int grade)
-        {
-            AddGrade((float)grade);
-        }
-
-        public void AddGrade(decimal grade)
-        {
-            AddGrade((float)grade);
-        }
-
-        //założenie, że nie wiem, jakie maksymalne wartości mają poniższe typy zmiennych
-        public void AddGrade(long grade)
-        {
-            if (grade >= float.MinValue && grade <= float.MaxValue)
-            {
-                AddGrade((float)grade);
-            }
-            else MessageError();
-        }
-        public void AddGrade(ulong grade)
-        {
-            if (grade >= float.MinValue && grade <= float.MaxValue)
-            {
-                AddGrade((float)grade);
-            }
-            else MessageError();
-        }
-        public void AddGrade(double grade)
-        {
-            if (grade >= float.MinValue && grade <= float.MaxValue)
-            {
-                AddGrade((float)grade);
-            }
-            else MessageError();
-        }
-
-
-
-
-        private void MessageError()
-        {
-            throw new Exception("Podano zby dużą liczbę dla typu float");
-        }
-
-
         public Statistics GetStatistics()
         {
             var statistics = new Statistics();
@@ -199,8 +154,4 @@ namespace ChellengeApp
             return statistics;
         }
     }
-
-
-
-
 }

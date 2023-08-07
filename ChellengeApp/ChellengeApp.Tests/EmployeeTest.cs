@@ -49,25 +49,24 @@ namespace ChellengeApp.Tests
             Assert.That((result.Min, result.Max, result.Average), Is.EqualTo((0, 0, 0f)));
         }
 
-        //[Test]
-        //public void WhenEmployeeCollectSwitchCharacterScoress_ShouldCorrectResult()
-        //{
-        //    var employeeTest = new Employee();
-        //    employeeTest.AddGrade('a');
-        //    employeeTest.AddGrade('e');
-        //    employeeTest.AddGrade('B');
-        //    employeeTest.AddGrade('z');
-        //    employeeTest.AddGrade('1');
-        //    employeeTest.AddGrade(111);
-        //    employeeTest.AddGrade("A");
-        //    employeeTest.AddGrade('A');
-        //    employeeTest.AddGrade('c');
-        //    employeeTest.AddGrade('E');
+        [Test]
+        public void WhenEmployeeCollectSwitchCharacterScoress_ShouldCorrectResult()
+        {
+            var employeeTest = new Employee();
+            employeeTest.AddGrade("a");
+            employeeTest.AddGrade("e");
+            employeeTest.AddGrade("B");
+            employeeTest.AddGrade("z");
+            employeeTest.AddGrade(111);
+            employeeTest.AddGrade("A");
+            employeeTest.AddGrade("A");
+            employeeTest.AddGrade("c");
+            employeeTest.AddGrade("E");
 
-        //    var result = employeeTest.GetStatistics();
+            var result = employeeTest.GetStatistics();
 
-        //    Assert.That((result.Min, result.Max, (float)Math.Round(result.Average, 2)), Is.EqualTo((20f, 100f, 63.33f)));
-        //}
+            Assert.That((result.Min, result.Max, (float)Math.Round(result.Average, 2)), Is.EqualTo((20f, 100f, 63.33f)));
+        }
 
 
     }
